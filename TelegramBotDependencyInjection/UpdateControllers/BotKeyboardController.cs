@@ -1,5 +1,6 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBotDependencyInjection.Contracts;
 
@@ -21,4 +22,6 @@ public class BotKeyboardController : IBotController
         }
         
     }
+
+    public List<UpdateType> UpdateTypes => new() { UpdateType.Message };
 }

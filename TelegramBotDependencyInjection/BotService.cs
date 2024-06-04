@@ -45,10 +45,16 @@ public class BotService
 
 
     async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
-        => Parallel.ForEach(_botControllers, (botController) =>
+    {
+        var targetControllers = _botControllers.Where(controller
+            => controller.UpdateTypes.Contains(update.Type));
+        
+        Parallel.ForEach(targetControllers, (controller) =>
         {
-            botController.HandleUpdateAsync(update, botClient);
+            controller.HandleUpdateAsync(update, botClient);
+
         });
+    }
 
     Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
     {
