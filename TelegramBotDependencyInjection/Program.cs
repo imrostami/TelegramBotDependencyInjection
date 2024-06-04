@@ -6,7 +6,7 @@ using TelegramBotDependencyInjection;
 
 var services = new ServiceCollection();
 services.AddSingleton<ITelegramBotClient, TelegramBotClient>(x => new TelegramBotClient(
-        token: "6303822898:AAGGZw5r7XBaTsrj-J61-VNObupqAEYdhWM"))
+        token: "TOKEN HERE"))
     .AddSingleton<BotService>()
     .AddTransient<IBotController, BotCommandController>()
     .AddTransient<IBotController, BotKeyboardController>()
