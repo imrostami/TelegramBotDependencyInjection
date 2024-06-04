@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using System.Diagnostics;
+using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
@@ -44,12 +45,10 @@ public class BotService
 
 
     async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
-    {
-        foreach (var botController in _botControllers)
+        => Parallel.ForEach(_botControllers, (botController) =>
         {
-            await botController.HandleUpdateAsync(update, botClient);
-        }
-    }
+            botController.HandleUpdateAsync(update, botClient);
+        });
 
     Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
     {
